@@ -168,3 +168,10 @@ describe('team and org rollups', () => {
     expect(periodsInWindow(['2026-01-01'], 30, '2026-10-30')).toEqual([])
   })
 })
+
+describe('formatDora zero', () => {
+  it('shows a bare zero for axis baselines', () => {
+    expect(formatDora('deploymentFrequency', 0)).toBe('0')
+    expect(formatDora('recoveryTime', 0)).toBe('0')
+  })
+})

@@ -236,7 +236,7 @@ export function DoraView({ dataset, filters, timeWindow }: Props): React.JSX.Ele
             <thead>
               <tr>
                 <th>Team</th>
-                <th>Team group</th>
+                <th>Group</th>
                 <th className="num">Engineers</th>
                 <th
                   className="num"
@@ -248,9 +248,9 @@ export function DoraView({ dataset, filters, timeWindow }: Props): React.JSX.Ele
                   <th
                     key={k}
                     className="num"
-                    title={config[k].metric ? metricName(config[k].metric) : ''}
+                    title={`${DORA_INFO[k].label}${config[k].metric ? ` · ${metricName(config[k].metric)}` : ''}`}
                   >
-                    {DORA_INFO[k].label}
+                    {DORA_INFO[k].short}
                   </th>
                 ))}
                 <th>Overall</th>

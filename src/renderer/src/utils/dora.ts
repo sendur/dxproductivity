@@ -14,28 +14,32 @@ export type DoraKey = (typeof DORA_KEYS)[number]
 
 export const DORA_INFO: Record<
   DoraKey,
-  { label: string; higherIsBetter: boolean; units: string[]; help: string }
+  { label: string; short: string; higherIsBetter: boolean; units: string[]; help: string }
 > = {
   deploymentFrequency: {
     label: 'Deployment frequency',
+    short: 'Deploy frequency',
     higherIsBetter: true,
     units: ['per day', 'per week', 'per month'],
     help: 'How often a team ships to production. Elite: on demand (daily or more).'
   },
   leadTime: {
     label: 'Lead time for changes',
+    short: 'Lead time',
     higherIsBetter: false,
     units: ['minutes', 'hours', 'days'],
     help: 'Commit to production. Elite: under a day.'
   },
   changeFailureRate: {
     label: 'Change failure rate',
+    short: 'Change failure rate',
     higherIsBetter: false,
     units: ['percent', 'ratio'],
     help: 'Share of deployments causing a failure in production. Elite: 5% or less.'
   },
   recoveryTime: {
     label: 'Failed deployment recovery time',
+    short: 'Recovery time',
     higherIsBetter: false,
     units: ['minutes', 'hours', 'days'],
     help: 'Time to restore service after a failed deployment. Elite: under an hour.'
@@ -284,6 +288,7 @@ export function orgSeries(key: DoraKey, perTeam: Map<string, Series>): Series {
 
 export function formatDora(key: DoraKey, value: number | null): string {
   if (value === null) return '—'
+  if (value === 0) return '0'
   if (key === 'deploymentFrequency') {
     if (value >= 1) return `${value.toLocaleString(undefined, { maximumFractionDigits: 1 })}/day`
     if (value * 7 >= 1) {
